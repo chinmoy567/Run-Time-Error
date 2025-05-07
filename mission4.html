@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search - Hablu's Mission</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .search-form input, .search-form select {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .search-form button {
+      padding: 10px;
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .search-form button:hover {
+      background-color: #21867a;
+    }
+
+    .job-results {
+      margin-top: 20px;
+    }
+
+    .job {
+      padding: 15px;
+      background-color: #eaf8e4;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job h3 {
+      margin: 0;
+      color: #2a9d8f;
+    }
+
+    .job p {
+      color: #555;
+    }
+
+    /* Back Button */
+    .back-button {
+      background-color: #e63946;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: block; /* Change to block for centering */
+      margin: 20px auto; /* Center the button horizontally */
+      text-align: center;
+      width: 20%; /* Fixed width */
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #4b8b61;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Find Your Job</h1>
+    <p class="subtitle">Search for jobs that match your skills and salary expectations.</p>
+
+    <!-- Job Search Form -->
+    <div class="search-form">
+      <select id="skillInput">
+        <option value="">Select Skill</option>
+        <option value="Front-end Developer">Front-end Developer</option>
+        <option value="Back-end Developer">Back-end Developer</option>
+        <option value="DevOps Engineer">DevOps Engineer</option>
+        <option value="Database Administrator">Database Administrator</option>
+        <option value="Designer">Designer</option>
+        <option value="PHP Developer">PHP Developer</option>
+      </select>
+
+      <select id="salaryRangeInput">
+        <option value="">Select Salary Range</option>
+        <option value="low">Low (above 70,000)</option>
+        <option value="medium">Medium (70,000 - 100,000)</option>
+        <option value="high">High (above 100,000)</option>
+      </select>
+
+      <select id="industryInput">
+        <option value="">Select Industry</option>
+        <option value="IT">IT</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Marketing">Marketing</option>
+        <option value="Finance">Finance</option>
+        <option value="Education">Education</option>
+      </select>
+
+      <select id="companySizeInput">
+        <option value="">Select Company Size</option>
+        <option value="Small">Small (1-50 employees)</option>
+        <option value="Medium">Medium (51-500 employees)</option>
+        <option value="Large">Large (500+ employees)</option>
+      </select>
+
+      <select id="jobStabilityInput">
+        <option value="">Select Job Stability</option>
+        <option value="Stable">Stable</option>
+        <option value="Unstable">Unstable</option>
+      </select>
+
+      <select id="benefitsInput">
+        <option value="">Select Benefits</option>
+        <option value="Health Insurance">Health Insurance</option>
+        <option value="Retirement Plans">Retirement Plans</option>
+        <option value="Paid Time Off">Paid Time Off</option>
+        <option value="Flexible Hours">Flexible Hours</option>
+      </select>
+
+      <select id="educationInput">
+        <option value="">Select Education</option>
+        <option value="Bachelor's">Bachelor's Degree</option>
+        <option value="Master's">Master's Degree</option>
+        <option value="PhD">PhD</option>
+      </select>
+
+      <input type="text" id="locationInput" placeholder="Enter Location (e.g., New York)" />
+
+      <button onclick="searchJobs()">Search Jobs</button>
+      <button onclick="clearSearch()">Clear Search</button>
+    </div>
+
+    <!-- Job Listings -->
+    <div id="jobResults" class="job-results">
+      <!-- Job results will be displayed here -->
+    </div>
+
+    <!-- Back Button at the Bottom -->
+    <a href="index.html" class="back-button">⬅️ Back</a>
+  </div>
+
+  <script>
+    // Sample job data
+    const jobs = [
+      { 
+        title: "Front-end Developer", 
+        salary: 75000, 
+        skills: "HTML, CSS, JavaScript", 
+        jobType: "Full-time", 
+        location: "New York", 
+        industry: "IT", 
+        companySize: "Small", 
+        jobStability: "Stable", 
+        benefits: "Health Insurance", 
+        education: "Bachelor's" 
+      },
+      { 
+        title: "Back-end Developer", 
+        salary: 90000, 
+        skills: "Node.js, MongoDB, Express", 
+        jobType: "Full-time", 
+        location: "San Francisco", 
+        industry: "IT", 
+        companySize: "Large", 
+        jobStability: "Stable", 
+        benefits: "Retirement Plans", 
+        education: "Master's" 
+      },
+      { 
+        title: "UI Designer", 
+        salary: 60000, 
+        skills: "Figma, Adobe XD", 
+        jobType: "Part-time", 
+        location: "Remote", 
+        industry: "Marketing", 
+        companySize: "Small", 
+        jobStability: "Unstable", 
+        benefits: "Flexible Hours", 
+        education: "Bachelor's" 
+      },
+      { 
+        title: "Project Manager", 
+        salary: 85000, 
+        skills: "Agile, Scrum, Leadership", 
+        jobType: "Full-time", 
+        location: "Chicago", 
+        industry: "Finance", 
+        companySize: "Medium", 
+        jobStability: "Stable", 
+        benefits: "Paid Time Off", 
+        education: "Master's" 
+      },
+      { 
+        title: "Data Scientist", 
+        salary: 95000, 
+        skills: "Python, Machine Learning, Data Analysis", 
+        jobType: "Internship", 
+        location: "New York", 
+        industry: "IT", 
+        companySize: "Large", 
+        jobStability: "Stable", 
+        benefits: "Health Insurance", 
+        education: "PhD" 
+      },
+    ];
+
+    // Function to display job results
+    function displayJobs(filteredJobs) {
+      const jobResultsContainer = document.getElementById('jobResults');
+      jobResultsContainer.innerHTML = ''; // Clear previous results
+
+      if (filteredJobs.length === 0) {
+        jobResultsContainer.innerHTML = '<p>No jobs found matching your criteria.</p>';
+        return;
+      }
+
+      filteredJobs.forEach(job => {
+        const jobElement = document.createElement('div');
+        jobElement.classList.add('job');
+        jobElement.innerHTML = ` 
+          <h3>${job.title}</h3>
+          <p><strong>Salary:</strong> $${job.salary}</p>
+          <p><strong>Skills:</strong> ${job.skills}</p>
+          <p><strong>Job Type:</strong> ${job.jobType}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <p><strong>Industry:</strong> ${job.industry}</p>
+          <p><strong>Company Size:</strong> ${job.companySize}</p>
+          <p><strong>Job Stability:</strong> ${job.jobStability}</p>
+          <p><strong>Benefits:</strong> ${job.benefits}</p>
+          <p><strong>Educational Requirement:</strong> ${job.education}</p>
+        `;
+        jobResultsContainer.appendChild(jobElement);
+      });
+    }
+
+    // Function to search jobs based on user input
+    function searchJobs() {
+      const skillInput = document.getElementById('skillInput').value;
+      const salaryRangeInput = document.getElementById('salaryRangeInput').value;
+      const industryInput = document.getElementById('industryInput').value;
+      const companySizeInput = document.getElementById('companySizeInput').value;
+      const jobStabilityInput = document.getElementById('jobStabilityInput').value;
+      const benefitsInput = document.getElementById('benefitsInput').value;
+      const educationInput = document.getElementById('educationInput').value;
+      const locationInput = document.getElementById('locationInput').value.toLowerCase();
+
+      const filteredJobs = jobs.filter(job => {
+        const matchesSkill = skillInput ? job.skills.toLowerCase().includes(skillInput.toLowerCase()) : true;
+        const matchesSalary = salaryRangeInput === "" || (salaryRangeInput === "low" && job.salary >= 70000) || 
+                             (salaryRangeInput === "medium" && job.salary >= 70000 && job.salary <= 100000) ||
+                             (salaryRangeInput === "high" && job.salary > 100000);
+        const matchesIndustry = industryInput ? job.industry === industryInput : true;
+        const matchesCompanySize = companySizeInput ? job.companySize === companySizeInput : true;
+        const matchesJobStability = jobStabilityInput ? job.jobStability === jobStabilityInput : true;
+        const matchesBenefits = benefitsInput ? job.benefits === benefitsInput : true;
+        const matchesEducation = educationInput ? job.education === educationInput : true;
+        const matchesLocation = locationInput ? job.location.toLowerCase().includes(locationInput) : true;
+
+        return matchesSkill && matchesSalary && matchesIndustry && matchesCompanySize &&
+               matchesJobStability && matchesBenefits && matchesEducation && matchesLocation;
+      });
+
+      // Display the filtered jobs
+      displayJobs(filteredJobs);
+    }
+
+    // Function to clear the search form
+    function clearSearch() {
+      document.getElementById('skillInput').value = '';
+      document.getElementById('salaryRangeInput').value = '';
+      document.getElementById('industryInput').value = '';
+      document.getElementById('companySizeInput').value = '';
+      document.getElementById('jobStabilityInput').value = '';
+      document.getElementById('benefitsInput').value = '';
+      document.getElementById('educationInput').value = '';
+      document.getElementById('locationInput').value = '';
+      document.getElementById('jobResults').innerHTML = '';
+    }
+  </script>
+
+</body>
+</html>

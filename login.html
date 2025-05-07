@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Hablu Hero</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eaf8e4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2a9d8f;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 1rem;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1rem;
+      margin-top: 5px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #2a9d8f;
+      outline: none;
+      background-color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #21867a;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .signup-link a {
+      color: #2a9d8f;
+      text-decoration: none;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px;
+      }
+
+      h2 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Login to Hablu Hero</h2>
+
+    <!-- Login Form -->
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email" required />
+    </div>
+    <div class="input-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" placeholder="Enter your password" required />
+    </div>
+
+    <button onclick="login()">Login</button>
+
+    <p class="signup-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+  </div>
+
+  <script>
+    function login() {
+      var email = document.getElementById("email").value;
+      var password = document.getElementById("password").value;
+
+      // Hardcoded credentials for demo
+      var validEmail = "hablu@gmail.com";
+      var validPassword = "999";
+
+      // Validate credentials
+      if (email === validEmail && password === validPassword) {
+        window.location.href = "index.html";  // Redirect to index.html upon successful login
+      } else {
+        alert("Invalid email or password. Please try again.");
+      }
+    }
+  </script>
+
+</body>
+</html>

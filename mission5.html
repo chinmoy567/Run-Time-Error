@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Run Hablu Run - AI Assistant</title>
+    <style>
+      :root {
+        --primary-green: #28a745;
+        --hover-green: #218838;
+        --light-green-bg: #e6ffe6;
+        --card-bg: #ffffff;
+        --text-dark: #1c1c1c;
+        --input-bg: #f9f9f9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: var(--light-green-bg);
+        margin: 0;
+        padding: 1.5rem;
+        max-width: 900px;
+        margin-inline: auto;
+        color: var(--text-dark);
+      }
+
+      h1,
+      h2 {
+        color: var(--primary-green);
+        text-align: center;
+      }
+
+      .section {
+        background: var(--card-bg);
+        padding: 1.2rem;
+        margin-top: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      input,
+      button {
+        padding: 0.75rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        border: none;
+        border-radius: 6px;
+        width: 100%;
+      }
+
+      input {
+        background: var(--input-bg);
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background-color: var(--primary-green);
+        color: white;
+        transition: background-color 0.3s ease;
+        font-weight: 600;
+      }
+
+      button:hover {
+        background-color: var(--hover-green);
+      }
+
+      .button-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 1rem;
+      }
+
+      @media (min-width: 600px) {
+        .button-row {
+          flex-direction: row;
+          justify-content: center;
+        }
+      }
+
+      .quote-box,
+      .event,
+      pre {
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        word-wrap: break-word;
+      }
+
+      .event {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+
+      pre {
+        white-space: pre-wrap;
+        text-align: left;
+      }
+    </style>
+ </head>
+ <body>
+   <h1>🏃‍♂️ Run Hablu Run</h1>
+
+   <div class="section">
+     <h2>📍 Nearby Marathon Events</h2>
+     <button onclick="loadMarathons()">Find Marathons Near Me</button>
+     <div id="marathon-results"></div>
+   </div>
+
+   <div class="section">
+     <h2>💡 Ask the AI Coach</h2>
+     <input
+       id="input-type"
+       placeholder="Type: motivation, stretch, form, or ask your own question"
+     />
+     <button onclick="askGPT()">Ask GPT</button>
+     <pre id="output">Your answer will appear here...</pre>
+   </div>
+
+   <div class="section">
+     <h2>💬 Hablu's Motivation Corner</h2>
+     <div id="quoteDisplay" class="quote-box">
+       Click a button to get motivated!
+     </div>
+     <div class="button-row">
+       <button onclick="generateAIQuote()">🎯 Get AI Quote</button>
+       <button onclick="randomLocalQuote()">🌟 Get Local Quote</button>
+     </div>
+   </div>
+ </body>
+
+    <script>
+      const API_KEY =
+        "addapikeyapikey"; 
+
+      const localQuotes = [
+        "Hablu, you're faster than your excuses!",
+        "Day 5? You're basically a superhero in sneakers.",
+        "Run like your snack depends on it!",
+        "Remember: even turtles finish the race 🐢💨",
+        "Sweat is just your fat crying. Keep going, Hablu!",
+      ];
+
+      function speakQuote(quote) {
+        const utterance = new SpeechSynthesisUtterance(quote);
+        utterance.lang = "en-US";
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+      }
+
+      function randomLocalQuote() {
+        const quote =
+          localQuotes[Math.floor(Math.random() * localQuotes.length)];
+        document.getElementById("quoteDisplay").textContent = quote;
+        speakQuote(quote);
+      }
+
+      async function generateAIQuote() {
+        const quoteDisplay = document.getElementById("quoteDisplay");
+        quoteDisplay.textContent = "Thinking... 💭";
+
+        try {
+          const response = await fetch(
+            "https://api.openai.com/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${API_KEY}`,
+              },
+              body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [
+                  {
+                    role: "user",
+                    content:
+                      "Give a short funny and energetic motivational quote for a beginner runner named Hablu on Day 5.",
+                  },
+                ],
+                temperature: 0.9,
+              }),
+            }
+          );
+
+          const data = await response.json();
+          const aiQuote =
+            data.choices?.[0]?.message?.content?.trim() || "Keep it up, Hablu!";
+          quoteDisplay.textContent = aiQuote;
+          speakQuote(aiQuote);
+        } catch (error) {
+          console.error("AI quote fetch failed:", error);
+          quoteDisplay.textContent =
+            "AI couldn't generate a quote. Showing a local one instead!";
+          randomLocalQuote();
+        }
+      }
+
+      async function askGPT() {
+        const inputType = document
+          .getElementById("input-type")
+          .value.toLowerCase();
+        let prompt;
+
+        if (inputType.includes("motivation")) {
+          prompt =
+            "Give a short motivational quote for a beginner runner named Hablu on Day 3 of his marathon journey. Make it funny and inspiring.";
+        } else if (inputType.includes("stretch")) {
+          prompt =
+            "Suggest 3 easy stretching exercises for a beginner runner before jogging. Keep it simple.";
+        } else if (inputType.includes("form")) {
+          prompt =
+            "Explain proper running form for a new runner. Include simple tips and what mistakes to avoid.";
+        } else {
+          prompt = inputType;
+        }
+
+        document.getElementById("output").innerText = "Thinking...";
+
+        try {
+          const response = await fetch(
+            "https://api.openai.com/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${API_KEY}`,
+              },
+              body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7,
+              }),
+            }
+          );
+
+          const data = await response.json();
+          document.getElementById("output").innerText =
+            data.choices?.[0]?.message?.content || "Something went wrong...";
+        } catch (error) {
+          document.getElementById("output").innerText =
+            "Error: " + error.message;
+        }
+      }
+
+      async function loadMarathons() {
+        const results = document.getElementById("marathon-results");
+        results.innerHTML = "Loading...";
+
+        if (!navigator.geolocation) {
+          results.innerHTML = "Geolocation is not supported.";
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          async (pos) => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            try {
+              const res = await fetch(
+                `https://csefest.srejon.com/api/v1/marathon?lat=${lat}&lon=${lon}`
+              );
+              const data = await res.json();
+
+              if (!data?.data?.length) {
+                results.innerHTML = "No upcoming marathons near you.";
+                return;
+              }
+
+              results.innerHTML = "";
+              data.data.forEach((event) => {
+                const div = document.createElement("div");
+                div.className = "event";
+                div.innerHTML = `<strong>${event.name}</strong><br>Date: ${event.date}<br>Location: ${event.location}`;
+                results.appendChild(div);
+              });
+            } catch (e) {
+              results.innerHTML = "Failed to load marathon data.";
+            }
+          },
+          () => {
+            results.innerHTML = "Failed to get your location.";
+          }
+        );
+      }
+    </script>
+  </body>
+</html>

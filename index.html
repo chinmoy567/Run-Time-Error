@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔥 Hablu Hero Dashboard</title>
+  <style>
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eaf8e4; 
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .missions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #fff;
+      border: 2px solid #eee;
+      padding: 20px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .card:hover {
+      background: #ffe5ec;
+      border-color: #e63946;
+      transform: translateY(-3px);
+    }
+
+    footer {
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 30px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .missions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      .subtitle {
+        font-size: 1em;
+      }
+
+      footer {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔥 Hablu Hero Dashboard</h1>
+
+    <div class="missions-grid">
+      <a href="mission1.html" class="card">🎓 Save Your CGPA</a>
+      <a href="mission2.html" class="card">🛠️ Learn New Skills</a>
+      <a href="mission3.html" class="card">👕 Dress Better</a>
+      <a href="mission4.html" class="card">💼 Find a Job</a>
+      <a href="mission5.html" class="card">🏃 Run Hablu, Run!</a>
+      <a href="mission6.html" class="card">💪 Find a Gym Friend</a>
+      <a href="mission7.html" class="card">🎬 Pick a Movie</a>
+      <a href="mission8.html" class="card">💡 Fun Facts</a>
+      <a href="mission9.html" class="card">📚 Group Study</a>
+      <a href="mission10.html" class="card">🧠 Mental Health</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

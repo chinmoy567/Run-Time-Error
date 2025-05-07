@@ -1,0 +1,130 @@
+Hablu's Heartbreak
+
+Hablu, a lazy but optimistic student at Palak University of Science and Technology (PUST) studying Computer Science and Engineering (CSE), has a lifestyle perfectly reflecting the university's relaxed motto, "সহমতই ভালো". Most of his time is spent lying in bed, endlessly scrolling Facebook reels and leaving comments on posts like "মা কে ভালোবাসলে কমেন্ট করে যান" with genuine sincerity as if his love for his mother depends on this.
+
+One fine afternoon, inspired by a motivational reel suggesting that "ভালোবাসার মানুষকে এখনি জানিয়ে দিন মনের কথা", Hablu gathered his courage and approached his campus crush, Sokhina. With innocent eyes and hopeful enthusiasm, he awkwardly asked:
+
+"Sokhina, shuno. What if we sit with the Imam and say the capital of Afghanistan three times?"
+
+Confused and slightly annoyed, Sokhina frowned, "What!?".
+
+Before Hablu could proudly explain his ingenious logic, Sokhina raised an eyebrow and sarcastically interrupted, "Oh wow, Hablu, brilliant! Have you ever looked at yourself lately? Even the campus stray dogs attend classes more regularly than you. How about you try fixing your CGPA, pick up an actual skill or two, and maybe, just maybe, walk into the gym at least once? And the only marathon you've done is binge-watching Netflix. Besides, have you seen the line of boro bhaiyas after me? Even senior bhaiyas with 3.9 CGPAs, coding internships, and abs built in the campus gym regularly fail to impress me. And here you are, thinking you will do the trick! Until then, please spare the Imam from your brilliant plans."
+
+Hablu's heart breaks. He runs to his best friend Maklu. Maklu was once rejected by Jorina, who is now the top coder on campus. Now he hears more "bhaiyaaa bhaiyaa", planning to convert them to "chalyaa chalyaa". Maklu promises to build an app that can help every "Hablu" change their life.
+
+You have 24 hours to turn Maklu's idea into a working demo. Maklu converted everything into manageable missions.
+
+We will give you an OpenAI API key. You can call the 03 model for text or ideas whenever it helps.
+
+Pick any number of missions below. Each one is a chapter in Hablu's comeback story. The more missions you finish, the stronger his transformation.
+
+
+
+
+
+Mission List
+
+1. Save Your CGPA
+
+Hablu logged into the IUMSS for the first time in several semesters, a decision driven by concern over his academic standing. Upon checking his CGPA, he was disheartened to see it was not even close to the crucial 3.0 mark.
+
+Memories flooded back of Sokhina's words: "Even senior bhalyas have CGPAs of 3.9..." With that in mind, Hablu realized he needed a comprehensive action plan to lift his grades from their current low point and regain his academic confidence.
+
+2. Learn New Skills
+
+During their lunch break, Sokhina enthusiastically shared that she admires individuals who can build applications, design user interfaces, or communicate effectively in public speaking scenarios.
+
+Inspired by her passion, Hablu felt a strong urge to cultivate a new skill but found himself uncertain about where to start.
+
+Reflecting on a previous conversation, he remembered Sokhina said to him, "You have god-given talents. Please now return them to God." This pushed him to consider how he might begin to utilize those talents for personal development.
+
+3. Dress Better
+
+Sokhina often playfully teases Hablu about his collection of free T-shirts from various hackathons, suggesting that it might be time for a wardrobe update.
+
+Recognizing the importance of personal appearance, especially in a social and professional environment, Hablu is eager for fashion advice that not only enhances his style but also suits his body type and fits within a tight student budget.
+
+He wants to make a good impression without sacrificing comfort or affordability.
+
+
+
+
+4. Job?
+
+Hablu loves spending time in his "Baper Hotel". Where Shokhina's father set a condition,
+
+if(salary 70000) print("bhaag beta abul"); else print("baba bolo kobul");
+
+Hablu needs to find a job too!
+
+5. Run Hablu, Run!
+
+With a marathon run scheduled for next month, Hablu feels both excited and anxious, as he can barely jog 200 meters without becoming winded. He suddenly remembered the rainy days on campus where he used to run in the rain with Sokhina in a dream, unfortunately.
+
+To help him prepare, Srejon shared a useful API endpoint:
+
+[GET] https://csefest.srejon.com/api/v1/marathon?lat={lat)&lon={lon)
+
+This endpoint provides information about upcoming runs in his vicinity, including event details and profiles of top participants. Motivated by the challenge, Hablu is determined to improve his stamina and participate in the event.
+
+6. Find a Gym Friend
+
+The thought of stepping into the weight room fills Hablu with apprehension, making it difficult for him to take that first step toward fitness. He believes that having a gym buddy would provide the encouragement and accountability he needs to start working out. He sometimes post in his story, "একলা আমি কে বলেছে? দুঃখ আবার কি? দুঃখের সাথে বন্ধুততা কবেই করেছি".
+
+To aid in his search, Srejon offered another useful API endpoint:
+
+[GET] https://csefest.srejon.com/api/v1/gyms?lat=(lat)&lon=(lon)
+
+It returns nearby gyms.
+
+[GET] https://csefest.srejon.com/api/v1/gymbros?lat={lat)&lon=(lon)
+
+It returns nearby gymbros.
+
+7. Pick a Movie
+
+After a long study session, Hablu seeks something uplifting to watch, opting for a feel-good film rather than mindlessly scrolling through his screen. He enjoys movies that leave him with
+
+
+
+
+a warm sense of joy and inspiration, allowing him to unwind and recharge.
+
+Just to mention, he is a big fan of Breaking Bad!
+
+8. Random Fun Fact
+
+To enrich Hablu's knowledge so that, in the future, he can confidently charm Sokhina with clever remarks, like saying.
+
+"Between Gold and you, I will always choose Gold, without A
+
+This not only sparks a fun conversation but also showcases his wit and intelligence.
+
+9. একসাথে ফাঁকিবাজি করবো না পড়ালেখা?
+
+Hablu had always dreamed of studying in groups, believing that collaborative learning could enhance his understanding of complex topics.
+
+To make this dream a reality, he looks for common free time slots when all his friends could gather for study sessions.
+
+However, he quickly discovered that these study groups often turn into lengthy and playful gossip sessions, steering the focus away from their studies.
+
+Despite his best efforts to keep everyone on track, Hablu found himself caught up in the distractions, realizing that balancing study and socialization was more challenging than he had anticipated.
+
+10. একলা আমি কে বলেছে? দুঃখ আবার কি?
+
+Sokhina has decided to leave Hablu, who is currently facing challenges with unemployment and emotional distress.
+
+Despite feeling overwhelmed, he has not yet taken the step to consult a psychiatrist for professional help. Prolonged suppression of his emotions could potentially result in chronic depression, which is a serious concern.
+
+To support him during this difficult time, it may be beneficial for him to implement an Al system that checks in on his mood regularly and encourages connection and communication. This way, he can begin to address his feelings and find healthier coping mechanisms as he navigates this challenging chapter in his life.
+
+
+
+11. Hero Dashboard
+
+Hablu is a lazy guy. He envisions an all-in-one dashboard where he can effortlessly track his progress and achievements. This includes monitoring his GPA as it improves, the skills he has acquired, the kilometers he has run, the weights he has lifted, the movies he has watched, and the interesting facts he has learned along the way.
+
+By consolidating this information in one place, he can easily reflect on his growth and set new personal goals.
+
+
+

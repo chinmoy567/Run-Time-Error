@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎓 Hablu's CGPA Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf8e4; 
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+
+    .dashboard {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2a9d8f; 
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section h3 {
+      color: #5d9e6b; 
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+
+    .section h3:hover {
+      color: #3a6f43; 
+    }
+
+    .section p {
+      font-size: 1rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+      margin: 5px 0;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #5d9e6b; 
+      box-shadow: 0 0 5px rgba(93, 158, 107, 0.5); 
+    }
+
+    button {
+      background-color: #5d9e6b; 
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background-color: #4b8b61; 
+      transform: scale(1.05); 
+    }
+
+    .result, .motivation {
+      font-size: 1.1rem;
+      margin-top: 15px;
+      padding: 12px;
+      background-color: #f1faee;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: background-color 0.3s;
+    }
+
+    .motivation {
+      color: #e63946;
+      font-weight: bold;
+    }
+
+    .study-plan {
+      background-color: #a8dadc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .study-plan ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .study-plan ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+      transition: background-color 0.3s;
+    }
+
+    .study-plan ul li:hover {
+      background-color: #f1faee; 
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    footer a {
+      color: #e63946;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #4b8b61; 
+    }
+
+    @media (max-width: 768px) {
+      .dashboard {
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .section h3 {
+        font-size: 1.2rem;
+      }
+
+      .study-plan {
+        padding: 10px;
+      }
+    }
+
+    .back-button {
+      background-color: #e63946;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #4b8b61;
+    }
+
+    .learn-skill-button {
+  background-color: #ff5722;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  display: none; /* Initially hidden */
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 15px; /* Adds space above the button */
+  margin-bottom: 15px; /* Adds space below the button */
+  margin-left: 10px; /* Adds space to the left of the button */
+  margin-right: 10px; /* Adds space to the right of the button */
+}
+
+.learn-skill-button:hover {
+  background-color: #e64a19;
+  transform: scale(1.05);
+  padding: 12px 20px; /* You can adjust this padding as necessary */
+}
+
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="section">
+      <h3>📊 CGPA Input + Calculator</h3>
+      <div class="input-container">
+        <input type="number" id="currentCgpa" placeholder="Current CGPA (e.g., 2.4)" step="0.01">
+        <input type="number" id="targetCgpa" placeholder="Target CGPA (e.g., 3.5)" step="0.01">
+        <input type="number" id="semestersLeft" placeholder="Remaining semesters (e.g., 3)">
+        <button onclick="calculateRequiredGpa()">Calculate</button>
+      </div>
+      <!-- New skill button -->
+
+      <div class="result" id="result"></div>
+      <div class="motivation" id="motivation"></div>
+      <button class="learn-skill-button" id="learnSkillBtn" onclick="window.location.href='mission2.html'" style="display: none;">Learn New Skill</button>
+
+
+    </div>
+
+    <!-- Study Plan Section -->
+    <div class="section">
+      <h3>📅 Study Plan (Customizable)</h3>
+      <div class="input-container">
+        <input type="text" id="studySubject" placeholder="Subject (subject name)">
+        <input type="number" id="studyHours" placeholder="Study Hours (hours)">
+        <button onclick="addStudyTask()">Add Task</button>
+      </div>
+      <div class="study-plan" id="studyPlan">
+        <ul id="studyPlanList">
+          <!-- Dynamic study plan will be displayed here -->
+        </ul>
+      </div>
+      <button id="downloadBtn" onclick="downloadPDF()">Download as PDF</button>
+    </div>
+
+
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">⬅️ Back</a>
+  </div>
+
+  <!-- Include jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // Function to calculate required GPA
+    function calculateRequiredGpa() {
+      const current = parseFloat(document.getElementById("currentCgpa").value);
+      const target = parseFloat(document.getElementById("targetCgpa").value);
+      const sems = parseInt(document.getElementById("semestersLeft").value);
+      const result = document.getElementById("result");
+      const motivation = document.getElementById("motivation");
+      const learnSkillBtn = document.getElementById("learnSkillBtn");
+
+      if (!current || !target || !sems || current > 4 || target > 4) {
+        result.innerText = "Please fill in all fields correctly. CGPA can't be more than 4.0.";
+        motivation.innerText = "";
+        learnSkillBtn.style.display = "none"; // Hide the button if not needed
+        return;
+      }
+
+      const required = ((target * (sems + 1)) - current) / sems;
+      result.innerText = `To reach a CGPA of ${target}, you need to average GPA: ${required.toFixed(2)} per semester.`;
+
+      if (required > 4) {
+        motivation.innerText = "Sokhina says: Even God can't save you now. Try for a skill instead 😭";
+        learnSkillBtn.style.display = "inline-block"; // Show the "Learn New Skill" button
+      } else if (required > 3.8) {
+        motivation.innerText = "Sokhina says: Campus dogs attend class more than you. Start now or cry later.";
+        learnSkillBtn.style.display = "none"; // Hide the button if not needed
+      } else if (required > 3.5) {
+        motivation.innerText = "Sokhina says: Still tough, but possible. Focus, Hablu.";
+        learnSkillBtn.style.display = "none"; // Hide the button if not needed
+      } else {
+        motivation.innerText = "Sokhina says: You can do this. Don’t mess it up!";
+        learnSkillBtn.style.display = "none"; // Hide the button if not needed
+      }
+    }
+
+    // Function to add a study task to the plan
+    function addStudyTask() {
+      const subject = document.getElementById("studySubject").value;
+      const hours = document.getElementById("studyHours").value;
+      const studyPlanList = document.getElementById("studyPlanList");
+
+      // Check if both fields are filled
+      if (!subject || !hours) {
+        alert("Please fill in both the subject and the hours.");
+        return;
+      }
+
+      // Create a new list item for the study plan
+      const newTask = document.createElement("li");
+      newTask.textContent = `${subject} - ${hours} hrs`;
+
+      // Append the new task to the study plan list
+      studyPlanList.appendChild(newTask);
+
+      // Clear the input fields
+      document.getElementById("studySubject").value = "";
+      document.getElementById("studyHours").value = "";
+    }
+
+    // Function to download the study plan as PDF
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      // Set PDF title
+      doc.text(" Hablu's CGPA Dashboard - Study Plan", 20, 10);
+      
+      // Get all study tasks
+      const studyTasks = document.getElementById("studyPlanList").children;
+      let yPos = 20;
+
+      // Add tasks to the PDF
+      Array.from(studyTasks).forEach((task, index) => {
+        doc.text(`${index + 1}. ${task.textContent}`, 20, yPos + (index * 10));
+      });
+
+      // Save the PDF
+      doc.save("study-plan.pdf");
+    }
+  </script>
+</body>
+</html>

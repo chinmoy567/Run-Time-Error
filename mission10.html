@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Life Helper</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #e8f5e9, #f1f8e9, #dcedc8);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 1rem;
+        transition: background 0.5s ease;
+      }
+
+      @keyframes gradientFlow {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        color: #2b2d42;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+      }
+
+      .container:hover {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-4px);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        color: #388e3c;
+      }
+
+      label {
+        display: block;
+        margin: 12px 0 6px;
+        font-weight: 600;
+        color: #4b5d4c;
+      }
+
+      select,
+      input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #c8e6c9;
+        background: #f9fdf8;
+        margin-bottom: 12px;
+        font-size: 1rem;
+        color: #333;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: #81c784;
+        box-shadow: 0 0 6px rgba(129, 199, 132, 0.5);
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background-color: #81c784;
+        color: #1b5e20;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #66bb6a;
+        transform: scale(1.02);
+      }
+
+      .response {
+        margin-top: 20px;
+        background: #f1fef4;
+        color: #33691e;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 500;
+        text-align: center;
+        font-size: 1rem;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .response.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 1.2rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        label,
+        input,
+        select,
+        button {
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>AI Life Decision Helper 🤖</h2>
+
+      <label for="mood">Mood</label>
+      <select id="mood">
+        <option value="">Select mood</option>
+        <option value="happy">😊 Happy</option>
+        <option value="sad">😢 Sad</option>
+        <option value="anxious">😟 Anxious</option>
+        <option value="tired">😴 Tired</option>
+        <option value="angry">😠 Angry</option>
+      </select>
+
+      <label for="sleep">Sleep Quality (1-10)</label>
+      <input type="number" id="sleep" min="1" max="10" />
+
+      <label for="stress">Stress Level (1-10)</label>
+      <input type="number" id="stress" min="1" max="10" />
+
+      <label for="motivation">Motivation Level (1-10)</label>
+      <input type="number" id="motivation" min="1" max="10" />
+
+      <label for="confidence">Confidence Level (1-10)</label>
+      <input type="number" id="confidence" min="1" max="10" />
+
+      <button onclick="getAIAdvice()">Get AI Advice</button>
+
+      <div class="response" id="resultBox">No response yet.</div>
+
+      <!-- Back Button -->
+      <button onclick="goBack()">⬅️ Back</button>
+    </div>
+
+    <script>
+      const apiKey = "addapikeyapikey";
+
+      async function getAIAdvice() {
+        const mood = document.getElementById("mood").value;
+        const sleep = document.getElementById("sleep").value;
+        const stress = document.getElementById("stress").value;
+        const motivation = document.getElementById("motivation").value;
+        const confidence = document.getElementById("confidence").value;
+        const resultBox = document.getElementById("resultBox");
+
+        resultBox.classList.remove("visible");
+        resultBox.textContent = "Thinking... 🧠";
+
+        const prompt = `
+You are a supportive AI counselor. A student shares:
+- Mood: ${mood}
+- Sleep Quality: ${sleep}/10
+- Stress Level: ${stress}/10
+- Motivation Level: ${motivation}/10
+- Confidence Level: ${confidence}/10
+
+Give a short insight and one practical tip for today.
+        `;
+
+        try {
+          const response = await fetch(
+            "https://api.openai.com/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${apiKey}`,
+              },
+              body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: prompt }],
+                max_tokens: 150,
+                temperature: 0.7,
+              }),
+            }
+          );
+
+          const data = await response.json();
+          resultBox.textContent =
+            data.choices?.[0]?.message?.content?.trim() ||
+            "No advice returned.";
+          resultBox.classList.add("visible");
+        } catch (error) {
+          console.error("Error:", error);
+          resultBox.textContent = "Something went wrong.";
+          resultBox.classList.add("visible");
+        }
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
+</html>
